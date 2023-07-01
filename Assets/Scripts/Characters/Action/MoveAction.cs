@@ -24,7 +24,8 @@ public class MoveAction : UnitActionBase
         }
 
         float stoppingDistance = .1f;
-        if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance) //Make the character stop moving when reach position
+        if (Vector3.Distance(transform.position, targetPosition) >
+            stoppingDistance) //Make the character stop moving when reach position
         {
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
             float moveSpeed = 4f;
@@ -78,11 +79,12 @@ public class MoveAction : UnitActionBase
                     // Grid Position already occupied with another Unit
                     continue;
                 }
-                validGridPositionList.Add(testGridPosition);
-                Debug.Log(testGridPosition);
-            }
 
+                validGridPositionList.Add(testGridPosition);
+                Debug.Log("Movable Place: " + testGridPosition);
+            }
         }
+
         return validGridPositionList;
     }
 
