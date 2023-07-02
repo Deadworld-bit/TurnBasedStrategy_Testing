@@ -5,8 +5,18 @@ using UnityEngine;
 
 public class ShootArrowAction : UnitActionBase
 {
-    private float totalSpinAmount;
+    private enum State
+    {
+        Aiming,
+        Shooting,
+        Delay,
+    }
+
+    private State state;
     private int maxShootDistance = 4;
+    private float stateTimer;
+    private Unit targetUnit;
+    private bool fire;
 
     private void Update()
     {
@@ -15,14 +25,52 @@ public class ShootArrowAction : UnitActionBase
             return;
         }
 
-        float spinAddAmount = 360f * Time.deltaTime;
-        transform.eulerAngles += new Vector3(0, spinAddAmount, 0);
+        stateTimer -= Time.deltaTime;
 
-        totalSpinAmount += spinAddAmount;
-        if (totalSpinAmount >= 360f)
+        switch (state)
         {
-            isActive = false;
-            onActionComplete();
+            case State.Aiming:
+                Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
+                float rotationSpeed = 10f;
+                transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotationSpeed);
+                break;
+            case State.Shooting:
+                if (fire)
+                {
+                    Shoot();
+                    fire = false;
+                }
+
+                break;
+            case State.Delay:
+                break;
+        }
+
+        if (stateTimer <= 0f)
+        {
+            NextState();
+        }
+    }
+
+    private void NextState()
+    {
+        switch (state)
+        {
+            case State.Aiming:
+                state = State.Shooting;
+                float shootingStateTime = 0.1f;
+                stateTimer = shootingStateTime;
+                break;
+
+            case State.Shooting:
+                state = State.Delay;
+                float delayStateTime = 0.5f;
+                stateTimer = delayStateTime;
+                break;
+
+            case State.Delay:
+                ActionFinish();
+                break;
         }
     }
 
@@ -47,12 +95,19 @@ public class ShootArrowAction : UnitActionBase
                     continue;
                 }
 
+                //Make the shooting range in circle around the character(much more diamonds shape)
+                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                if (testDistance > maxShootDistance)
+                {
+                    continue;
+                }
+
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position is empty, no unit sighted :))
                     continue;
                 }
-                
+
                 //Get unit at the test grid position 
                 Unit targetUnit = LevelGrid.Instance.GetUnitOnGridPosition(testGridPosition);
 
@@ -70,10 +125,20 @@ public class ShootArrowAction : UnitActionBase
         return validGridPositionList;
     }
 
+    private void Shoot()
+    {
+        targetUnit.Damage();
+    }
+
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        this.onActionComplete = onActionComplete;
-        isActive = true;
-        totalSpinAmount = 0f;
+        ActionInit(onActionComplete);
+
+        targetUnit = LevelGrid.Instance.GetUnitOnGridPosition(gridPosition);
+
+        state = State.Aiming;
+        float aimingStateTime = 1f;
+        stateTimer = aimingStateTime;
+        fire = true;
     }
 }
