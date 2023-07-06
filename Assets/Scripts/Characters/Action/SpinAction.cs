@@ -16,10 +16,10 @@ public class SpinAction : UnitActionBase
         {
             return;
         }
-
+    
         float spinAddAmount = 360f * Time.deltaTime;
         transform.eulerAngles += new Vector3(0, spinAddAmount, 0);
-
+    
         totalSpinAmount += spinAddAmount;
         if (totalSpinAmount >= 360f)
         {

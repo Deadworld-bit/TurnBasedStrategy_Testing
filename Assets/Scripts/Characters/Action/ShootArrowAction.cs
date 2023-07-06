@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class ShootArrowAction : UnitActionBase
 {
+    public event EventHandler OnShoot; 
+    
+    
+    
     private enum State
     {
         Aiming,
@@ -127,6 +131,7 @@ public class ShootArrowAction : UnitActionBase
 
     private void Shoot()
     {
+        OnShoot?.Invoke(this,EventArgs.Empty);
         targetUnit.Damage();
     }
 

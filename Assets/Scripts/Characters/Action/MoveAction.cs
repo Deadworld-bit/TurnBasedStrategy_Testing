@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class MoveAction : UnitActionBase
 {
-    [SerializeField] private Animator unitAnimator;
+    public event EventHandler OnStartMoving;
+    public event EventHandler OnStopMoving;
+
+    // [SerializeField] private Animator unitAnimator;
     [SerializeField] private int maxMoveDistance = 4;
 
     private Vector3 targetPosition;
@@ -35,11 +38,12 @@ public class MoveAction : UnitActionBase
             float rotationSpeed = 10f;
             transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotationSpeed);
 
-            unitAnimator.SetBool("isWalking", true);
+            // unitAnimator.SetBool("isWalking", true);
         }
         else
         {
-            unitAnimator.SetBool("isWalking", false);
+            // unitAnimator.SetBool("isWalking", false);
+            OnStopMoving?.Invoke(this, EventArgs.Empty);
             ActionFinish();
         }
     }
@@ -48,6 +52,7 @@ public class MoveAction : UnitActionBase
     {
         this.targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
         ActionInit(onActionComplete);
+        OnStartMoving?.Invoke(this, EventArgs.Empty);
     }
 
     public override List<GridPosition> GetValidActionGridPosition()
