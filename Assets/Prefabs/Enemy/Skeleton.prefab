@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1614354651710587430}
   - component: {fileID: -973919299333647603}
   - component: {fileID: -4652240300333115523}
+  - component: {fileID: 8366026422117695870}
   m_Layer: 7
   m_Name: Skeleton
   m_TagString: Player
@@ -75,7 +76,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3ea7ead7928ec4aa840580b56ff6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitAnimator: {fileID: 0}
   maxMoveDistance: 4
 --- !u!114 &-4652240300333115523
 MonoBehaviour:
@@ -87,6 +87,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65c062540d35aff49a1d43199deb08de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8366026422117695870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447482708486501898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c26eccd68084084d912765c7422e7a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8486254212943063805

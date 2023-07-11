@@ -6,6 +6,8 @@ using UnityEngine;
 public class UnitAnimator : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private Transform arrowProjectTilePrefab;
+    [SerializeField] private Transform arrowSpawnTransform;
 
     private void Awake()
     {
@@ -33,8 +35,15 @@ public class UnitAnimator : MonoBehaviour
         animator.SetBool("isWalking", false);
     }
     
-    private void ShootArrowAction_OnShoot(object sender, EventArgs e)
+    private void ShootArrowAction_OnShoot(object sender, ShootArrowAction.OnShootEventArgs e)
     {
         animator.SetTrigger("isShooting");
+        Transform arrowProjectileTransform = Instantiate(arrowProjectTilePrefab, arrowSpawnTransform.position, Quaternion.identity);
+        ArrowProjectile arrowProjectile = arrowProjectileTransform.GetComponent<ArrowProjectile>();
+        
+        //Shoot at body instead of the feet 
+        Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+        targetUnitShootAtPosition.y = arrowSpawnTransform.position.y;
+        arrowProjectile.Setup(targetUnitShootAtPosition);
     }
 }
