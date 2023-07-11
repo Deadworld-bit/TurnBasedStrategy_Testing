@@ -15,12 +15,14 @@ public class Unit : MonoBehaviour
     private MoveAction moveAction;
     private SpinAction spinAction;
 
+    private HealthPointSystem healthPointSystem;
     private int actionPoints = ACTION_POINTS_MAX;
 
     private UnitActionBase[] baseActionArray;
 
     private void Awake()
     {
+        healthPointSystem = GetComponent<HealthPointSystem>();
         moveAction = GetComponent<MoveAction>();
         spinAction = GetComponent<SpinAction>();
         baseActionArray = GetComponents<UnitActionBase>();
@@ -32,6 +34,8 @@ public class Unit : MonoBehaviour
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
 
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+
+        healthPointSystem.OnUnitDown += HealthPointSystem_OnUnitDown;
     }
 
     private void Update()
@@ -120,8 +124,15 @@ public class Unit : MonoBehaviour
         return isEnemy;
     }
 
-    public void Damage()
+    public void Damage(int damageAmount)
     {
-        Debug.Log(transform + "damaged!");
+        healthPointSystem.Damage(damageAmount);
+        Debug.Log(transform + "Target damaged!");
+    }
+
+    private void HealthPointSystem_OnUnitDown(object sender, EventArgs e)
+    {
+        LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
+        Destroy(gameObject);
     }
 }

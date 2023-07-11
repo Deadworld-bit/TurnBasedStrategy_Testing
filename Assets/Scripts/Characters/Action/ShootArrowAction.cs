@@ -140,7 +140,7 @@ public class ShootArrowAction : UnitActionBase
             targetUnit = targetUnit,
             shootingUnit = unit
         });
-        targetUnit.Damage();
+        targetUnit.Damage(30);
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
