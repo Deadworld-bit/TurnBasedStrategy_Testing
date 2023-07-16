@@ -8,6 +8,9 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform arrowProjectTilePrefab;
     [SerializeField] private Transform arrowSpawnTransform;
+    [SerializeField] private float arrowSpawnTimer = 4.6f;
+
+    private float timer;
 
     private void Awake()
     {
@@ -17,7 +20,7 @@ public class UnitAnimator : MonoBehaviour
             moveAction.OnStartMoving += MoveAction_OnStartMoving;
             moveAction.OnStopMoving += MoveAction_OnStopMoving;
         }
-        
+
         //Get Shoot action
         if (TryGetComponent<ShootArrowAction>(out ShootArrowAction shootArrowAction))
         {
@@ -29,18 +32,18 @@ public class UnitAnimator : MonoBehaviour
     {
         animator.SetBool("isWalking", true);
     }
-    
+
     private void MoveAction_OnStopMoving(object sender, EventArgs e)
     {
         animator.SetBool("isWalking", false);
     }
-    
+
     private void ShootArrowAction_OnShoot(object sender, ShootArrowAction.OnShootEventArgs e)
     {
         animator.SetTrigger("isShooting");
         Transform arrowProjectileTransform = Instantiate(arrowProjectTilePrefab, arrowSpawnTransform.position, Quaternion.identity);
         ArrowProjectile arrowProjectile = arrowProjectileTransform.GetComponent<ArrowProjectile>();
-        
+
         //Shoot at body instead of the feet 
         Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
         targetUnitShootAtPosition.y = arrowSpawnTransform.position.y;

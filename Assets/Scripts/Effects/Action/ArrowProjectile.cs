@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ArrowProjectile : MonoBehaviour
 {
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private Transform arrowHitVfxPrefab;
-    
+
     private Vector3 targetPosition;
 
     public void Setup(Vector3 targetPosition)
