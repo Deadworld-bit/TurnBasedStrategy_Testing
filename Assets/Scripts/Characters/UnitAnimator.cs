@@ -8,7 +8,6 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform arrowProjectTilePrefab;
     [SerializeField] private Transform arrowSpawnTransform;
-    [SerializeField] private float arrowSpawnTimer = 4.6f;
 
     private float timer;
 

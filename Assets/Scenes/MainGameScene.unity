@@ -1661,12 +1661,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976562842}
   m_CullTransparentMesh: 1
---- !u!95 &1034326397 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 30446113782680387, guid: cfc3fcc14260ed14eb0f9b757f3dc9fa,
-    type: 3}
-  m_PrefabInstance: {fileID: 2023885017}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1038717028 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3447482708486501900, guid: cfc3fcc14260ed14eb0f9b757f3dc9fa,
@@ -2635,7 +2629,7 @@ PrefabInstance:
         type: 3}
       propertyPath: unitAnimator
       value: 
-      objectReference: {fileID: 1034326397}
+      objectReference: {fileID: 0}
     - target: {fileID: -973919299333647603, guid: cfc3fcc14260ed14eb0f9b757f3dc9fa,
         type: 3}
       propertyPath: maxMoveDistance
