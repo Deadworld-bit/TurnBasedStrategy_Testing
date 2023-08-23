@@ -151,6 +151,7 @@ MonoBehaviour:
   arrowProjectTilePrefab: {fileID: 6864965666218636436, guid: 6c7d2566bad65864cae0d0b7316aa1ac,
     type: 3}
   arrowSpawnTransform: {fileID: 4413077948018204555}
+  delayInSeconds: 2
 --- !u!114 &7876545845060265772
 MonoBehaviour:
   m_ObjectHideFlags: 0

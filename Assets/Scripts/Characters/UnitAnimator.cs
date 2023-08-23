@@ -8,6 +8,7 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform arrowProjectTilePrefab;
     [SerializeField] private Transform arrowSpawnTransform;
+    public float delayInSeconds = 2.0f;
 
     private float timer;
 
@@ -37,15 +38,38 @@ public class UnitAnimator : MonoBehaviour
         animator.SetBool("isWalking", false);
     }
 
-    private void ShootArrowAction_OnShoot(object sender, ShootArrowAction.OnShootEventArgs e)
+    // private void ShootArrowAction_OnShoot(object sender, ShootArrowAction.OnShootEventArgs e)
+    // {
+    //     animator.SetTrigger("isShooting");
+    //     Transform arrowProjectileTransform = Instantiate(arrowProjectTilePrefab, arrowSpawnTransform.position, Quaternion.identity);
+    //     ArrowProjectile arrowProjectile = arrowProjectileTransform.GetComponent<ArrowProjectile>();
+    //
+    //     //Shoot at body instead of the feet 
+    //     Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+    //     targetUnitShootAtPosition.y = arrowSpawnTransform.position.y;
+    //     arrowProjectile.Setup(targetUnitShootAtPosition);
+    // }
+
+    private IEnumerator InstantiateArrowWithDelay(float delay, Vector3 targetPosition)
     {
-        animator.SetTrigger("isShooting");
+        yield return new WaitForSeconds(delay);
+    
         Transform arrowProjectileTransform = Instantiate(arrowProjectTilePrefab, arrowSpawnTransform.position, Quaternion.identity);
         ArrowProjectile arrowProjectile = arrowProjectileTransform.GetComponent<ArrowProjectile>();
 
-        //Shoot at body instead of the feet 
-        Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+        // Shoot at body instead of the feet 
+        Vector3 targetUnitShootAtPosition = targetPosition;
         targetUnitShootAtPosition.y = arrowSpawnTransform.position.y;
         arrowProjectile.Setup(targetUnitShootAtPosition);
+    }
+    
+    private void ShootArrowAction_OnShoot(object sender, ShootArrowAction.OnShootEventArgs e)
+    {
+        animator.SetTrigger("isShooting");
+    
+        // Delay the instantiation by a certain time (in seconds)
+        float delay = 3.1f; // Adjust this value as needed
+    
+        StartCoroutine(InstantiateArrowWithDelay(delay, e.targetUnit.GetWorldPosition()));
     }
 }
