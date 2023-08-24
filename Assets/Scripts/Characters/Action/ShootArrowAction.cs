@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class ShootArrowAction : UnitActionBase
 {
@@ -66,7 +67,7 @@ public class ShootArrowAction : UnitActionBase
         {
             case State.Aiming:
                 state = State.Shooting;
-                float shootingStateTime = 5f;
+                float shootingStateTime = 2f;
                 stateTimer = shootingStateTime;
                 break;
 
@@ -133,13 +134,28 @@ public class ShootArrowAction : UnitActionBase
         return validGridPositionList;
     }
 
-    private void Shoot()
+    // private void Shoot()
+    // {
+    //     OnShoot?.Invoke(this,new OnShootEventArgs
+    //     {
+    //         targetUnit = targetUnit,
+    //         shootingUnit = unit
+    //     });
+    //     targetUnit.Damage(30);
+    // }
+    
+    private async void Shoot()
     {
-        OnShoot?.Invoke(this,new OnShootEventArgs
+        // Invoking the OnShoot event
+        OnShoot?.Invoke(this, new OnShootEventArgs
         {
             targetUnit = targetUnit,
             shootingUnit = unit
         });
+
+        // Adding a delay before applying damage
+        await Task.Delay(1650); // Delay for 1000 milliseconds (1 second)
+
         targetUnit.Damage(30);
     }
 
@@ -150,7 +166,7 @@ public class ShootArrowAction : UnitActionBase
         targetUnit = LevelGrid.Instance.GetUnitOnGridPosition(gridPosition);
 
         state = State.Aiming;
-        float aimingStateTime = 1f;
+        float aimingStateTime = 0.75f;
         stateTimer = aimingStateTime;
         fire = true;
     }

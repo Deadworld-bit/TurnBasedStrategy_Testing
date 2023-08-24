@@ -7,6 +7,7 @@ public class RagdollSpawner : MonoBehaviour
 {
     [SerializeField] private Transform ragdollPrefab;
     [SerializeField] private Transform originalRootBone;
+    [SerializeField] private float delayBeforeRagdoll = 1.8f;
 
     private HealthPointSystem healthPointSystem;
 
@@ -23,4 +24,6 @@ public class RagdollSpawner : MonoBehaviour
         Ragdoll ragdoll = ragdollTransform.GetComponent<Ragdoll>();
         ragdoll.Setup(originalRootBone);
     }
+    
+    
 }

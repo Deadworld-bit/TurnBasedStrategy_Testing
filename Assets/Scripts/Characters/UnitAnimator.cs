@@ -8,7 +8,8 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform arrowProjectTilePrefab;
     [SerializeField] private Transform arrowSpawnTransform;
-    public float delayInSeconds = 2.0f;
+    [SerializeField] private Transform arrowPrefab;
+    [SerializeField] private float delayTime = 1.05f;
 
     private float timer;
 
@@ -68,8 +69,6 @@ public class UnitAnimator : MonoBehaviour
         animator.SetTrigger("isShooting");
     
         // Delay the instantiation by a certain time (in seconds)
-        float delay = 3.1f; // Adjust this value as needed
-    
-        StartCoroutine(InstantiateArrowWithDelay(delay, e.targetUnit.GetWorldPosition()));
+        StartCoroutine(InstantiateArrowWithDelay(delayTime, e.targetUnit.GetWorldPosition()));
     }
 }
