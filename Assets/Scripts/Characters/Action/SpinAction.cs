@@ -30,8 +30,8 @@ public class SpinAction : UnitActionBase
     // public void Spin(SpinCompleteDelegate onSpinComplete)     
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        ActionInit(onActionComplete);
         totalSpinAmount = 0f;
+        ActionInit(onActionComplete);
     }
 
     public override List<GridPosition> GetValidActionGridPosition()

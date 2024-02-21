@@ -161,13 +161,23 @@ public class ShootArrowAction : UnitActionBase
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        ActionInit(onActionComplete);
-
         targetUnit = LevelGrid.Instance.GetUnitOnGridPosition(gridPosition);
 
         state = State.Aiming;
         float aimingStateTime = 0.75f;
         stateTimer = aimingStateTime;
         fire = true;
+        
+        ActionInit(onActionComplete);
+    }
+
+    public Unit GetTargetUnit()
+    {
+        return targetUnit;
+    }
+
+    public int GetMaxShootDistance()
+    {
+        return maxShootDistance;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveAction : UnitActionBase
+public class   MoveAction : UnitActionBase
 {
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
@@ -51,8 +51,8 @@ public class MoveAction : UnitActionBase
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         this.targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
-        ActionInit(onActionComplete);
         OnStartMoving?.Invoke(this, EventArgs.Empty);
+        ActionInit(onActionComplete);
     }
 
     public override List<GridPosition> GetValidActionGridPosition()
