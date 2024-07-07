@@ -7,6 +7,10 @@
 * A basic UI is currently implemented and will receive updates to improve functionality and user experience.
 * Assets and models from the Unity Asset Store are used to enrich the visual experience.
 
+## Incoming Update
+* Enhance game visual
+* Add multi-floors
+
 ##### © Deadworld 2023
 
 ### Screenshots:
