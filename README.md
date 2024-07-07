@@ -4,6 +4,7 @@
 * TurnBasedStrategy_Testing is a game built on a turn-based system where both characters and enemies act based on an action points system. These action points refresh at the start of each side's turn.
 * The game utilizes a custom-built grid system for strategic movement, enhancing the tactical depth of gameplay.
 * The game features an AI system for enemies to provide a more engaging and challenging combat experience.
+* A pathfinding system ensures smooth and strategic navigation, allowing characters and enemies to find efficient routes across the grid.
 * A basic UI is currently implemented and will receive updates to improve functionality and user experience.
 * Assets and models from the Unity Asset Store are used to enrich the visual experience.
 
