@@ -17,3 +17,7 @@
 ### Screenshots:
 
 ![Project First ScreenShot](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Screenshot%202023-07-01%20143517.png)
+![Project Second ScreenShot](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Screenshot%202024-07-07%20153308.png)
+![Project Third ScreenShot](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Screenshot%202024-07-07%20153308.png)
+
+
