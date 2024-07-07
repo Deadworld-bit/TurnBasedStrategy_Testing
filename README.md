@@ -12,16 +12,12 @@
 * Enhance game visual
 * Add multi-floors
 
-##### © Deadworld 2023
-
 ### Screenshots:
 
-![Project First ScreenShot](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Screenshot%202023-07-01%20143517.png)
+![Project First ScreenShot](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Screenshot%202023-07-01%20143517.png)<br><br>
+![Project Second ScreenShot](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Screenshot%202024-07-07%20153308.png)<br><br>  
+![Project Third ScreenShot](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Screenshot%202024-07-07%20153241.png)<br><br>  
 
-
-![Project Second ScreenShot](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Screenshot%202024-07-07%20153308.png)
-
-
-![Project Third ScreenShot](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Screenshot%202024-07-07%20153241.png)
+##### © Deadworld 2023
 
 
