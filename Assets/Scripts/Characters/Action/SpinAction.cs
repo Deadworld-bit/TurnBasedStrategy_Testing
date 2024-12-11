@@ -16,10 +16,10 @@ public class SpinAction : UnitActionBase
         {
             return;
         }
-    
+
         float spinAddAmount = 360f * Time.deltaTime;
         transform.eulerAngles += new Vector3(0, spinAddAmount, 0);
-    
+
         totalSpinAmount += spinAddAmount;
         if (totalSpinAmount >= 360f)
         {
@@ -52,5 +52,13 @@ public class SpinAction : UnitActionBase
     public override int GetActionPointsCost()
     {
         return 2;
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        return new EnemyAIAction{
+            gridPosition = gridPosition,
+            actionValue = 0,
+        };
     }
 }

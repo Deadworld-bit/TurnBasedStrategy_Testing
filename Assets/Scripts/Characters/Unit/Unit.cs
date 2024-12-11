@@ -8,12 +8,15 @@ public class Unit : MonoBehaviour
     private const int ACTION_POINTS_MAX = 4;
 
     public static event EventHandler OnAnyActionPointsChanged;
+    public static event EventHandler OnAnyUnitSpawned;
+    public static event EventHandler OnAnyUnitDown;
 
     [SerializeField] private bool isEnemy;
 
     private GridPosition gridPosition;
     private MoveAction moveAction;
     private SpinAction spinAction;
+    private ShootArrowAction shootArrowAction;
 
     private HealthPointSystem healthPointSystem;
     private int actionPoints = ACTION_POINTS_MAX;
@@ -25,6 +28,7 @@ public class Unit : MonoBehaviour
         healthPointSystem = GetComponent<HealthPointSystem>();
         moveAction = GetComponent<MoveAction>();
         spinAction = GetComponent<SpinAction>();
+        shootArrowAction = GetComponent<ShootArrowAction>();
         baseActionArray = GetComponents<UnitActionBase>();
     }
 
@@ -36,6 +40,7 @@ public class Unit : MonoBehaviour
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
 
         healthPointSystem.OnUnitDown += HealthPointSystem_OnUnitDown;
+        OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
 
     private void Update()
@@ -46,7 +51,7 @@ public class Unit : MonoBehaviour
             // Unit changed Grid Position
             GridPosition oldGridPosition = gridPosition;
             gridPosition = newGridPosition;
-            
+
             LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
         }
     }
@@ -59,6 +64,10 @@ public class Unit : MonoBehaviour
     public SpinAction GetSpinAction()
     {
         return spinAction;
+    }
+
+    public ShootArrowAction GetShootArrowAction(){
+        return shootArrowAction;
     }
 
     public Vector3 GetWorldPosition()
@@ -136,5 +145,10 @@ public class Unit : MonoBehaviour
     {
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
         Destroy(gameObject);
+        OnAnyUnitDown?.Invoke(this, EventArgs.Empty);
+    }
+
+    public float GetHealthPointNormalized(){
+        return healthPointSystem.getHealthPercentage();
     }
 }

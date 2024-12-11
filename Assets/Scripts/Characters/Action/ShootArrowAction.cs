@@ -13,7 +13,7 @@ public class ShootArrowAction : UnitActionBase
         public Unit targetUnit;
         public Unit shootingUnit;
     }
-    
+
     private enum State
     {
         Aiming,
@@ -90,8 +90,13 @@ public class ShootArrowAction : UnitActionBase
 
     public override List<GridPosition> GetValidActionGridPosition()
     {
-        List<GridPosition> validGridPositionList = new List<GridPosition>();
         GridPosition unitGridPosition = unit.GetGridPosition();
+        return GetValidActionGridPosition(unitGridPosition);
+    }
+
+    public List<GridPosition> GetValidActionGridPosition(GridPosition unitGridPosition)
+    {
+        List<GridPosition> validGridPositionList = new List<GridPosition>();
 
         for (int x = -maxShootDistance; x <= maxShootDistance; x++)
         {
@@ -143,7 +148,7 @@ public class ShootArrowAction : UnitActionBase
     //     });
     //     targetUnit.Damage(30);
     // }
-    
+
     private async void Shoot()
     {
         // Invoking the OnShoot event
@@ -167,7 +172,7 @@ public class ShootArrowAction : UnitActionBase
         float aimingStateTime = 0.75f;
         stateTimer = aimingStateTime;
         fire = true;
-        
+
         ActionInit(onActionComplete);
     }
 
@@ -179,5 +184,20 @@ public class ShootArrowAction : UnitActionBase
     public int GetMaxShootDistance()
     {
         return maxShootDistance;
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        Unit targetUnit = LevelGrid.Instance.GetUnitOnGridPosition(gridPosition);
+        return new EnemyAIAction
+        {
+            gridPosition = gridPosition,
+            actionValue = 100 + Mathf.RoundToInt((1-targetUnit.GetHealthPointNormalized()) * 100f),
+        };
+    }
+
+    public int GetTargetCountAtPosition(GridPosition gridPosition)
+    {
+        return GetValidActionGridPosition(gridPosition).Count;
     }
 }
