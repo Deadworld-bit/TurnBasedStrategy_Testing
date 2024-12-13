@@ -8,6 +8,9 @@
 * A basic UI is currently implemented and will receive updates to improve functionality and user experience.
 * Assets and models from the Unity Asset Store are used to enrich the visual experience.
 
+## Pathfinding Algorithm
+![Algorithm](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Pathfinding.drawio.png)<br><br>
+
 ## Incoming Update
 * Enhance game visual
 * Add multi-floors
