@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Unit : MonoBehaviour
 {
@@ -14,9 +15,6 @@ public class Unit : MonoBehaviour
     [SerializeField] private bool isEnemy;
 
     private GridPosition gridPosition;
-    private MoveAction moveAction;
-    private SpinAction spinAction;
-    private ShootArrowAction shootArrowAction;
 
     private HealthPointSystem healthPointSystem;
     private int actionPoints = ACTION_POINTS_MAX;
@@ -26,9 +24,6 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         healthPointSystem = GetComponent<HealthPointSystem>();
-        moveAction = GetComponent<MoveAction>();
-        spinAction = GetComponent<SpinAction>();
-        shootArrowAction = GetComponent<ShootArrowAction>();
         baseActionArray = GetComponents<UnitActionBase>();
     }
 
@@ -56,18 +51,16 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public MoveAction GetMoveAction()
+    public T GetAction<T>() where T : UnitActionBase
     {
-        return moveAction;
-    }
-
-    public SpinAction GetSpinAction()
-    {
-        return spinAction;
-    }
-
-    public ShootArrowAction GetShootArrowAction(){
-        return shootArrowAction;
+        foreach (UnitActionBase baseAction in baseActionArray)
+        {
+            if (baseAction is T)
+            {
+                return (T)baseAction;
+            }
+        }
+        return null;
     }
 
     public Vector3 GetWorldPosition()
@@ -148,7 +141,8 @@ public class Unit : MonoBehaviour
         OnAnyUnitDown?.Invoke(this, EventArgs.Empty);
     }
 
-    public float GetHealthPointNormalized(){
+    public float GetHealthPointNormalized()
+    {
         return healthPointSystem.getHealthPercentage();
     }
 }

@@ -167,7 +167,7 @@ public class UnitActionSystem : MonoBehaviour
         // {
         //     OnSelectedUnitChanged(this, EventArgs.Empty);
         // }
-        SetSelectedAction(unit.GetMoveAction());
+        SetSelectedAction(unit.GetAction<MoveAction>());
 
         OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
     }
