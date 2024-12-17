@@ -35,4 +35,39 @@ public class PathfindingNode
     {
         return cCost;
     }
+
+    public void SetACost(int aCost)
+    {
+        this.aCost = aCost;
+    }
+
+    public void SetBCost(int bCost)
+    {
+        this.bCost = bCost;
+    }
+
+    public void CalculateCCost()
+    {
+        cCost = aCost + bCost;
+    }
+
+    public void ResetComeFromPathfindingNode()
+    {
+        comeFromPathfindingNode = null;
+    }
+
+    public void SetComeFromPathfindingNode(PathfindingNode pathfindingNode)
+    {
+        comeFromPathfindingNode = pathfindingNode;
+    }
+
+    public PathfindingNode GetComeFromPathfindingNode()
+    {
+        return comeFromPathfindingNode;
+    }
+
+    public GridPosition GetGridPosition()
+    {
+        return gridPosition;
+    }
 }
