@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
@@ -10,6 +11,7 @@ public class Pathfinding : MonoBehaviour
     private const int MOVE_DIAGONAL_COST = 14;
 
     [SerializeField] private Transform gridDebugObjectPrefab;
+    [SerializeField] private LayerMask obstaclesLayerMask;
 
     private int width;
     private int height;
@@ -25,9 +27,6 @@ public class Pathfinding : MonoBehaviour
             return;
         }
         Instance = this;
-
-        gridSystem = new GridSystem<PathfindingNode>(10, 10, 2f, (GridSystem<PathfindingNode> a, GridPosition gridPosition) => new PathfindingNode(gridPosition));
-        gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
     }
 
     public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition)
@@ -77,6 +76,12 @@ public class Pathfinding : MonoBehaviour
                     continue;
                 }
 
+                if (!closedByNode.IsWalkable())
+                {
+                    closeList.Add(closedByNode);
+                    continue;
+                }
+
                 int tentativeACost = currentNode.GetACost() + CalculateDistance(currentNode.GetGridPosition(), closedByNode.GetGridPosition());
 
                 if (tentativeACost < closedByNode.GetACost())
@@ -96,6 +101,30 @@ public class Pathfinding : MonoBehaviour
 
         // No path found
         return null;
+    }
+
+    public void Setup(int width, int height, float cellSize)
+    {
+        this.width = width;
+        this.height = height;
+        this.cellSize = cellSize;
+
+        gridSystem = new GridSystem<PathfindingNode>(width, height, cellSize, (GridSystem<PathfindingNode> a, GridPosition gridPosition) => new PathfindingNode(gridPosition));
+        gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                GridPosition gridPosition = new GridPosition(x, z);
+                Vector3 worldPositon = LevelGrid.Instance.GetWorldPosition(gridPosition);
+                float rayCastOffSetDistance = 5f;
+                if (Physics.Raycast(worldPositon + Vector3.down * rayCastOffSetDistance, Vector3.up, rayCastOffSetDistance * 2, obstaclesLayerMask))
+                {
+                    GetNode(x,z).SetIsWalkable(false);
+                }
+            }
+        }
     }
 
     public int CalculateDistance(GridPosition gridPositionA, GridPosition gridPositionB)

@@ -10,6 +10,7 @@ public class PathfindingNode
     private int cCost; //f
 
     private PathfindingNode comeFromPathfindingNode;
+    private bool isWalkable = true;
 
     public PathfindingNode(GridPosition gridPosition)
     {
@@ -69,5 +70,15 @@ public class PathfindingNode
     public GridPosition GetGridPosition()
     {
         return gridPosition;
+    }
+
+    public bool IsWalkable()
+    {
+        return isWalkable;
+    }
+
+    public void SetIsWalkable(bool isWalkable)
+    {
+        this.isWalkable = isWalkable;
     }
 }
