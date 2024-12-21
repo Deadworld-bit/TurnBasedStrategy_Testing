@@ -9,15 +9,10 @@ public class MoveAction : UnitActionBase
     public event EventHandler OnStopMoving;
 
     // [SerializeField] private Animator unitAnimator;
-    [SerializeField] private int maxMoveDistance = 4;
+    [SerializeField] private int maxMoveDistance = 5;
 
-    private Vector3 targetPosition;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        targetPosition = transform.position; //Make the unit stay a their position
-    }
+    private List<Vector3> targetPositionList;
+    private int currentPositionIndex;
 
     private void Update()
     {
@@ -26,31 +21,45 @@ public class MoveAction : UnitActionBase
             return;
         }
 
+        Vector3 targetPosition = targetPositionList[currentPositionIndex];
+        Vector3 moveDirection = (targetPosition - transform.position).normalized;
+
+        // transform.forward=moveDirection;   the most simple way to make the character ratate to moving direction
+        float rotationSpeed = 10f;
+        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotationSpeed);
+
         float stoppingDistance = .1f;
-        if (Vector3.Distance(transform.position, targetPosition) >
-            stoppingDistance) //Make the character stop moving when reach position
+        if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance) //Make the character stop moving when reach position
         {
-            Vector3 moveDirection = (targetPosition - transform.position).normalized;
             float moveSpeed = 4f;
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
-
-            // transform.forward=moveDirection;   the most simple way to make the character ratate to moving direction
-            float rotationSpeed = 10f;
-            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotationSpeed);
-
             // unitAnimator.SetBool("isWalking", true);
         }
         else
         {
+            currentPositionIndex++;
+            if (currentPositionIndex >= targetPositionList.Count)
+            {
+                OnStopMoving?.Invoke(this, EventArgs.Empty);
+                ActionFinish();
+            }
             // unitAnimator.SetBool("isWalking", false);
-            OnStopMoving?.Invoke(this, EventArgs.Empty);
-            ActionFinish();
+            // OnStopMoving?.Invoke(this, EventArgs.Empty);
+            // ActionFinish();
         }
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        this.targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
+        List<GridPosition> pathfindingGridPositions = Pathfinding.Instance.FindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
+        currentPositionIndex = 0;
+        targetPositionList = new List<Vector3>();
+
+        foreach (GridPosition pathfindingGridPosition in pathfindingGridPositions)
+        {
+            targetPositionList.Add(LevelGrid.Instance.GetWorldPosition(pathfindingGridPosition));
+        }
+
         OnStartMoving?.Invoke(this, EventArgs.Empty);
         ActionInit(onActionComplete);
     }
@@ -80,6 +89,23 @@ public class MoveAction : UnitActionBase
                 if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     // Grid Position already occupied with another Unit
+                    continue;
+                }
+
+                if (!Pathfinding.Instance.IsWalkableGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+                if (!Pathfinding.Instance.AvailablePath(unitGridPosition, testGridPosition))
+                {
+                    continue;
+                }
+
+                int pathfindingDistanceMultiplier = 10;
+                if (Pathfinding.Instance.GetPathLength(unitGridPosition, testGridPosition) > maxMoveDistance * pathfindingDistanceMultiplier)
+                {
+                    //The path is way too long
                     continue;
                 }
 

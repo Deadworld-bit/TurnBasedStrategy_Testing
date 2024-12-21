@@ -29,7 +29,7 @@ public class Pathfinding : MonoBehaviour
         Instance = this;
     }
 
-    public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition)
+    public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition, out int pathLength)
     {
         List<PathfindingNode> openList = new List<PathfindingNode>();
         List<PathfindingNode> closeList = new List<PathfindingNode>();
@@ -63,6 +63,7 @@ public class Pathfinding : MonoBehaviour
             if (currentNode == endNode)
             {
                 // Reached final node
+                pathLength = endNode.GetCCost();
                 return CalculatedPath(endNode);
             }
 
@@ -100,6 +101,7 @@ public class Pathfinding : MonoBehaviour
         }
 
         // No path found
+        pathLength = 0;
         return null;
     }
 
@@ -121,7 +123,7 @@ public class Pathfinding : MonoBehaviour
                 float rayCastOffSetDistance = 5f;
                 if (Physics.Raycast(worldPositon + Vector3.down * rayCastOffSetDistance, Vector3.up, rayCastOffSetDistance * 2, obstaclesLayerMask))
                 {
-                    GetNode(x,z).SetIsWalkable(false);
+                    GetNode(x, z).SetIsWalkable(false);
                 }
             }
         }
@@ -226,5 +228,21 @@ public class Pathfinding : MonoBehaviour
         }
 
         return gridPositionsList;
+    }
+
+    public bool IsWalkableGridPosition(GridPosition gridPosition)
+    {
+        return gridSystem.GetGridObject(gridPosition).IsWalkable();
+    }
+
+    public bool AvailablePath(GridPosition startGridPosition, GridPosition endGridPosition)
+    {
+        return FindPath(startGridPosition, endGridPosition, out int pathLength) != null;
+    }
+
+    public int GetPathLength(GridPosition startGridPosition, GridPosition endGridPosition)
+    {
+        FindPath(startGridPosition, endGridPosition, out int pathLength);
+        return pathLength;
     }
 }

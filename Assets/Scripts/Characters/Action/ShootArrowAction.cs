@@ -27,6 +27,8 @@ public class ShootArrowAction : UnitActionBase
     private Unit targetUnit;
     private bool fire;
 
+    [SerializeField] private LayerMask obstacleLayerMask;
+
     private void Update()
     {
         if (!isActive)
@@ -131,6 +133,19 @@ public class ShootArrowAction : UnitActionBase
                     continue;
                 }
 
+                //Check to not shoot through walls
+                Vector3 unitWorldPosition =LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 shootDir = targetUnit.GetWorldPosition() - unitWorldPosition.normalized;
+                float unitShoulderHeight = 1.5f;
+
+                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight,
+                shootDir, Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
+                obstacleLayerMask))
+                {
+                    //Blocked by obstacle
+                    continue;
+                }
+
                 validGridPositionList.Add(testGridPosition);
                 Debug.Log("Shoot Distance: " + testGridPosition);
             }
@@ -192,7 +207,7 @@ public class ShootArrowAction : UnitActionBase
         return new EnemyAIAction
         {
             gridPosition = gridPosition,
-            actionValue = 100 + Mathf.RoundToInt((1-targetUnit.GetHealthPointNormalized()) * 100f),
+            actionValue = 100 + Mathf.RoundToInt((1 - targetUnit.GetHealthPointNormalized()) * 100f),
         };
     }
 
