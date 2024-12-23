@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 public class ShootArrowAction : UnitActionBase
 {
     public event EventHandler<OnShootEventArgs> OnShoot;
+    public static event EventHandler<OnShootEventArgs> OnAnyShoot;
 
     public class OnShootEventArgs : EventArgs
     {
@@ -134,7 +135,7 @@ public class ShootArrowAction : UnitActionBase
                 }
 
                 //Check to not shoot through walls
-                Vector3 unitWorldPosition =LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
                 Vector3 shootDir = targetUnit.GetWorldPosition() - unitWorldPosition.normalized;
                 float unitShoulderHeight = 1.5f;
 
@@ -172,10 +173,16 @@ public class ShootArrowAction : UnitActionBase
             targetUnit = targetUnit,
             shootingUnit = unit
         });
+        
+        await Task.Delay(1050);
+        OnAnyShoot?.Invoke(this, new OnShootEventArgs
+        {
+            targetUnit = targetUnit,
+            shootingUnit = unit
+        });
 
         // Adding a delay before applying damage
-        await Task.Delay(1650); // Delay for 1000 milliseconds (1 second)
-
+        await Task.Delay(600); // Delay for 1000 milliseconds (1 second) 
         targetUnit.Damage(30);
     }
 
