@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 7566539454060425782}
   - component: {fileID: 7876545845060265772}
   - component: {fileID: -7159202997472368799}
+  - component: {fileID: -3160305078610745037}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Player
@@ -186,6 +187,20 @@ MonoBehaviour:
   ragdollPrefab: {fileID: 3447482708486501899, guid: 5c344851a018f3e41aaf12762ae3bdcd,
     type: 3}
   originalRootBone: {fileID: 86017440034978217}
+--- !u!114 &-3160305078610745037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447482708486501898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2523eeb73e1ee3448b2a75484e54938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellProjectilePrefab: {fileID: 6183307211259032403, guid: 1740fcc219fc73f4ba90997bc233e076,
+    type: 3}
 --- !u!1 &3766389308185778683
 GameObject:
   m_ObjectHideFlags: 0
