@@ -49,6 +49,57 @@ MonoBehaviour:
   spellBurstVfxPrefab: {fileID: 7011152122541779103, guid: 60a08e7e9a9e1974ba19acec6f50ab83,
     type: 3}
   spellBurstTrailRenderer: {fileID: 7996466575908226918}
+  arcYAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -2.718655
+      outSlope: -2.718655
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.046579123
+    - serializedVersion: 3
+      time: 0.21381043
+      value: 0.51697034
+      inSlope: 11.445952
+      outSlope: 11.445952
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.05222951
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5143256
+      value: 0.73596525
+      inSlope: -9.537631
+      outSlope: -9.537631
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16972487
+    - serializedVersion: 3
+      time: 0.5726759
+      value: 0.83280206
+      inSlope: 4.043216
+      outSlope: 4.043216
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.0489944
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 2.0055406
+      outSlope: 2.0055406
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.16236684
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &898120668569730256
 GameObject:
   m_ObjectHideFlags: 0

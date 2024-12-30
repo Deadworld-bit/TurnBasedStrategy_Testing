@@ -10,7 +10,8 @@ public class Ragdoll : MonoBehaviour
     {
         MatchAllChildTransform(originalRootBone, ragdollRootBone);
 
-        ApplyImpactToRagdoll(ragdollRootBone, 300f, transform.position, 10f);
+        Vector3 randomDir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+        ApplyImpactToRagdoll(ragdollRootBone, 300f, transform.position + randomDir, 10f);
     }
 
     //Recursion function
