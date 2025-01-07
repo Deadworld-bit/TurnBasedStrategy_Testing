@@ -1,10 +1,19 @@
 [![Create a Turn Based Strategy Game with Unity | © 2023 by Deadworld ]](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing.git)
 # Welcome to TurnBasedStrategy_Testing repository
 ## This repo stores unity projects. You will find in this repo the following stuff
-* TurnBasedStrategy_Testing is a project built on a turn-based system where both characters and enemies act based on an action points system. These action points refresh at the start of each side's turn.
+* TurnBasedStrategy_Testing is a project built on a turn-based system where both characters and enemies act based on an action points system.
 * The game utilizes a custom-built grid system for strategic movement, enhancing the tactical depth of gameplay. 
 * A basic UI is currently implemented and will receive updates to improve functionality and user experience.
 * Assets and models from the Unity Asset Store are used to enrich the visual experience.
+
+### Turn-Based Action Point System
+* Action Points (AP)
+  - Each unit has a certain amount of AP per turn
+  - Actions like movement, attack or abilities cost AP.
+* Action Costs : Actions have varying AP costs based on complexity or impact:
+  - Movement: Costs AP based on the distance traveled.
+  - Attacks: Different weapons/skills may have unique AP costs.
+  - Abilities: Powerful abilities might require more AP or multiple turns to execute.
 
 ### Pathfinding Algorithm
 * In this project, the pathfinding system is designed to account for obstacles, walls, player units, and enemies, ensuring it calculates an optimal and viable path for movement.
