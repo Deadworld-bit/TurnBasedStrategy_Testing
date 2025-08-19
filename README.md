@@ -1,6 +1,6 @@
 [![Create a Turn Based Strategy Game with Unity | © 2023 by Deadworld ]](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing.git)
 
-Welcome to the **TurnBasedStrategy_Testing** repository! This Unity project showcases a turn-based strategy game built with a custom grid system, action point mechanics, and intelligent enemy AI. Explore tactical gameplay with strategic movement, dynamic combat, and an evolving user interface.
+Welcome to the **TurnBasedStrategy_Testing** repository! This Unity project showcases a turn-based strategy game demo built with a custom grid system, action point mechanics, and intelligent enemy AI. Explore tactical gameplay with strategic movement, dynamic combat, and an evolving user interface.
 
 # Project Overview
 
@@ -12,6 +12,8 @@ This repository contains a Unity-based turn-based strategy game with the followi
 - **Enemy AI**: Smart AI evaluates and prioritizes actions based on suitability and available AP during enemy turns.
 - **Basic UI**: A functional user interface, with planned updates to improve usability and aesthetics.
 - **Visual Assets**: Models and assets from the Unity Asset Store enhance the game's visual experience.
+
+---
 
 # Key Features
 
@@ -39,9 +41,11 @@ This repository contains a Unity-based turn-based strategy game with the followi
 - **UI Enhancements**: Improve the user interface for better functionality and a polished experience.
 - **Additional Features**: Stay tuned for more updates to enrich gameplay and visuals.
 
-## Screenshots
+---
 
-Explore the game’s visuals through these screenshots:
+# Screenshots
+
+Explore the demo’s visuals through these screenshots:
 
 ![Screenshot 1](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Pic_01.png)  
 ![Screenshot 2](https://github.com/Deadworld-bit/TurnBasedStrategy_Testing/blob/main/Pictures/Pic_02.png)  
